@@ -5,12 +5,12 @@ Tic Tac Toe Ruby App with rspec testing by Dan Park
 
 Overview
 --------
-ticTacToe is a simple console app that allows for two player mode or one player mode against computer.  On one player mode, a user can choose between easy, intermediate, or unbeatable.
+tictactoe is a simple console app that allows for two player mode or one player mode against computer.  On one player mode, a user can choose between easy, intermediate, or unbeatable.
 
 Getting Started
 ---------------
 
-1.  Download `ticTacToe` and open the source folder in console
+1.  Download `tic_tac_toe` and open the source folder in console
 
 2.  Execute the app through Ruby by entering `ruby run_app.rb` in console.
 
