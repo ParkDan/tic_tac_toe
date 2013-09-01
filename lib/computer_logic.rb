@@ -61,6 +61,7 @@ module ComputerLogic
   def special_case_for_fourth_turn(symbol)
     return [2,2] if @board[2][1]==@board[1][2]&&@board[2][1]==symbol&&@count==3&&empty?([2,2])
     return [2,1] if @board[2][0]==@board[0][2]&&@board[2][0]==symbol||@board[0][0]==@board[2][2]&&@board[0][0]==symbol&&@count==3&&empty?([2,1])
+    return [0,1] if @board[2][0]==@board[1][2]&&@board[2][0]==symbol||@board[2][1]==@board[0][2]&&@board[0][2]==symbol&&@count==3&&empty?([0,1])
   end
 
   def next_move
