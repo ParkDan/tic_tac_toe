@@ -65,8 +65,8 @@ module ComputerLogic
     case4=@board[2][1]==@board[0][2]&&@board[0][2]==symbol
     case5=@board[2][0]==@board[0][2]&&@board[2][0]==symbol
     case6=@board[0][0]==@board[2][2]&&@board[0][0]==symbol
-    return [2,2] if case1||case2||case3||case4&&@count==3&&empty?([2,2])
-    return [2,1] if case5||case6&&@count==3&&empty?([2,1])
+    return [2,2] if (case1||case2||case3||case4&&@count==3)&&empty?([2,2])
+    return [2,1] if (case5||case6&&@count==3)&&empty?([2,1])
   end
 
   def next_move
