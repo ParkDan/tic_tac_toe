@@ -1,5 +1,5 @@
 class Computer
-  attr_accessor :name, :level, :symbol
+  attr_reader :name, :level, :symbol
   def initialize(name, level, symbol, opponent_symbol)
     @name = name
     @level = level

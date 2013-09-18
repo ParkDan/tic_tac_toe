@@ -3,11 +3,12 @@ require './lib/computer'
 require './lib/player'
 
 class Game
-  def initialize(player_mode)
+  attr_reader :x_symbol, :o_symbol, :board
+
+  def initialize
     @x_symbol = 'X'
     @o_symbol = 'O'
     @board = Board.new
-    implement_interface(player_mode)
   end
 
   def implement_interface(player_mode)

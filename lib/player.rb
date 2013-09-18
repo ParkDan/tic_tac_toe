@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :name, :symbol
+  attr_reader :name, :symbol
 
   def initialize(name, symbol)
     @name = name
@@ -15,10 +15,7 @@ class Player
         next
       end
       board.assign_move(move, symbol)
-      if board.game_victory_check
-        board.winner = @name
-        break
-      end
+      board.winner = @name if board.game_victory_check
       board.count+=1
       break
     end

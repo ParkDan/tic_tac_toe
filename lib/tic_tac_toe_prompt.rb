@@ -17,7 +17,8 @@ class TicTacToePrompt
         puts "sorry invalid response"
         next
       end
-      game=Game.new(response)
+      game=Game.new
+      game.implement_interface(response)
       break
     end
   end

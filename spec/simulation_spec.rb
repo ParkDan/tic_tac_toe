@@ -1,4 +1,4 @@
-require './lib/tic_tac_toe'
+require './lib/game'
 
 describe '100X cpu vs cpu simulation tests' do
   before do
@@ -8,8 +8,8 @@ describe '100X cpu vs cpu simulation tests' do
   it 'should only allow stalemate for 100 games of unbeatable cpu vs unbeatable cpu' do
       game_over_array=[]
       100.times do |x|
-        test_game=TicTacToe.new
-        game_over_array<<test_game.cpu_v_cpu(3, 3)
+        test_game=Game.new
+        game_over_array<<test_game.cpu_v_cpu_interface(3, 3)
       end
       expect(game_over_array).not_to include "Computer1, Computer2"
   end
@@ -20,10 +20,10 @@ describe '100X cpu vs cpu simulation tests' do
     @count_array=[]
     @board_array=[]
     100.times do |x|
-        test_game=TicTacToe.new
-        @game_over_array<<test_game.cpu_v_cpu(1, 3)
-        @count_array<<test_game.count
-        @board_array<<test_game.board
+        test_game=Game.new
+        @game_over_array<<test_game.cpu_v_cpu_interface(1, 3)
+        @count_array<<test_game.board.count
+        @board_array<<test_game.board.board
     end
   end
 
