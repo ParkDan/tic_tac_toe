@@ -11,6 +11,11 @@ class Game
     @board = Board.new
   end
 
+  def implement_interface(player_mode)
+    one_player_interface if player_mode == 1
+    two_player_interface if player_mode == 2
+  end
+
   def one_player_interface
     level = set_computer_level
     order = set_first_move
@@ -62,11 +67,6 @@ class Game
       cpu2.turn(@board)
     end
     @board.winner
-  end
-
-  def implement_interface(player_mode)
-    one_player_interface if player_mode == 1
-    two_player_interface if player_mode == 2
   end
 
   # private

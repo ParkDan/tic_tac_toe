@@ -1,11 +1,11 @@
 TicTacToe
 ===========
 
-Tic Tac Toe Ruby App with rspec testing by Dan Park
+Tic Tac Toe Ruby App with RSPEC testing by Dan Park
 
 Overview
 --------
-tictactoe is a simple console app that allows for two player mode or one player mode against computer.  On one player mode, a user can choose between easy, intermediate, or unbeatable.
+tictactoe is a simple console app that allows for two player mode or one player mode against computer.  On one player mode, a user can choose between easy, intermediate, or unbeatable, with the option to go first or second.
 
 Getting Started
 ---------------
@@ -21,4 +21,4 @@ Enter `rspec` in the console from the source folder to run all tests, or run a s
 Thoughts
 --------
 
-Tic Tac Toe was a fun little application that allowed me to practice object-oriented programming and some much needed practic with RSPEC.  I chose to write most of my code and methods in modules, so that I wouldn't need to create new class instances, and  methods could easily inherit instance variables.  Looking ahead I plan to incorporate a more robust interface and more comprehensive testing as I continue to refactor.
+Tic Tac Toe was a fun little application that allowed me to practice object-oriented programming with RSPEC testing.   Looking ahead I plan to incorporate a more robust interface and stronger testing as I continue to refactor.  Let me know if you have any pointers, feedback, or beat my unbeatable computer.  Thanks!
