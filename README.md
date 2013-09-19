@@ -12,7 +12,7 @@ Getting Started
 
 1.  Download `tic_tac_toe` and open the source folder in console
 
-2.  Execute the app through Ruby by entering `ruby start_tic_tac_toe.rb` in console.
+2.  Execute the app through Ruby by entering `ruby start_ttt.rb` in console.
 
 Testing
 -------

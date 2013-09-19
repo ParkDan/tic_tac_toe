@@ -3,7 +3,7 @@ require './lib/game'
 describe Game do
   before do
     $stdout.stub(:write)
-    @test_game=Game.new
+    @test_game = Game.new
   end
 
   describe 'initialization' do
@@ -18,12 +18,12 @@ describe Game do
   describe 'game_over_message' do
     it 'should return tie message if count is 9 and no winner' do
       @test_game.board.count=9
-      tie_message="You have reached a stalemate"
+      tie_message = "You have reached a stalemate"
       expect(@test_game.game_over_message).to eql(tie_message)
     end
     it 'should return winner message if winner has been established' do
       @test_game.board.winner="Me"
-      winner_message="The winner is #{@test_game.board.winner}!"
+      winner_message = "The winner is #{@test_game.board.winner}!"
       expect(@test_game.game_over_message).to eql(winner_message)
     end
   end

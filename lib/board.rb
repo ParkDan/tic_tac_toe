@@ -1,5 +1,6 @@
 class Board
-  attr_accessor :board, :count, :winner
+  attr_reader :board
+  attr_accessor :count, :winner
 
   def initialize
     @board = [[" "," "," "],[" "," "," "],[" "," "," "]]
@@ -33,6 +34,10 @@ class Board
   def assign_move(move, symbol)
     @board[move[0]][move[1]] = symbol
     display
+  end
+
+  def position(move)
+    @board[move[0]][move[1]]
   end
 
   def empty?(move)

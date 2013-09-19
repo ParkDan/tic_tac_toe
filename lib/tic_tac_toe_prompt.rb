@@ -10,17 +10,19 @@ class TicTacToePrompt
 
   def game_start
     header
-    while true
-      puts "Would you like to play one player or two?"
+    5.times do
+      puts "Would you like to play one player or two? (1 or 2)"
       response = gets.chomp.to_i
       unless (1..2).include? response
         puts "sorry invalid response"
         next
       end
-      game=Game.new
+      game = Game.new
       game.implement_interface(response)
       break
     end
+    puts "********************************************************"
+    puts "GoodBye"
   end
 
 end

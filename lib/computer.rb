@@ -1,5 +1,10 @@
 class Computer
+  TOP_LEFT, TOP_MID, TOP_RIGHT = [0,0], [0,1], [0,2]
+  MID_LEFT, CENTER, MID_RIGHT = [1,0], [1,1], [1,2]
+  BOT_LEFT, BOT_MID, BOT_RIGHT = [2,0], [2,1], [2,2]
+
   attr_reader :name, :level, :symbol
+
   def initialize(name, level, symbol, opponent_symbol)
     @name = name
     @level = level
@@ -9,15 +14,17 @@ class Computer
 
   def turn(board)
     puts "Computer turn..."
-    # sleep 0.5
+    sleep 0.5
     move = computer_move(board)
     board.assign_move(move, symbol)
     board.winner = @name if board.game_victory_check
     board.count += 1
   end
 
+  # private
+
   def computer_move(board)
-    move = [1,1]
+    move = CENTER
     while board.game_on?
       break if board.empty?(move)
       if @level == 1
@@ -52,37 +59,37 @@ class Computer
   end
 
   def two_in_a_row_case(board, symbol)
-    return [0,0] if ((board.board[0][1] == board.board[0][2] && board.board[0][1] == symbol) || (board.board[1][0] == board.board[2][0] && board.board[1][0] == symbol) || (board.board[1][1] == board.board[2][2] && board.board[1][1] == symbol)) && board.empty?([0,0])
-    return [0,2] if ((board.board[0][1] == board.board[0][0] && board.board[0][1] == symbol) || (board.board[1][2] == board.board[2][2] && board.board[1][2] == symbol) || (board.board[1][1] == board.board[2][0] && board.board[1][1] == symbol)) && board.empty?([0,2])
-    return [2,0] if ((board.board[0][0] == board.board[1][0] && board.board[0][0] == symbol) || (board.board[2][1] == board.board[2][2] && board.board[2][1] == symbol) || (board.board[1][1] == board.board[0][2] && board.board[1][1] == symbol)) && board.empty?([2,0])
-    return [2,2] if ((board.board[0][0] == board.board[1][1] && board.board[0][0] == symbol) || (board.board[0][2] == board.board[1][2] && board.board[0][2] == symbol) || (board.board[2][0] == board.board[2][1] && board.board[2][0] == symbol)) && board.empty?([2,2])
-    return [0,1] if ((board.board[0][0] == board.board[0][2] && board.board[0][0] == symbol) || (board.board[1][1] == board.board[2][1] && board.board[1][1] == symbol)) && board.empty?([0,1])
-    return [1,0] if ((board.board[1][1] == board.board[1][2] && board.board[1][1] == symbol) || (board.board[0][0] == board.board[2][0] && board.board[0][0] == symbol)) && board.empty?([1,0])
-    return [1,2] if ((board.board[0][2] == board.board[2][2] && board.board[0][2] == symbol) || (board.board[1][0] == board.board[1][1] && board.board[1][0] == symbol)) && board.empty?([1,2])
-    return [2,1] if ((board.board[2][0] == board.board[2][2] && board.board[2][0] == symbol) || (board.board[0][1] == board.board[1][1] && board.board[0][1] == symbol)) && board.empty?([2,1])
+    return TOP_LEFT if ((board.position(TOP_MID) == board.position(TOP_RIGHT) && board.position(TOP_MID) == symbol) || (board.position(MID_LEFT) == board.position(BOT_LEFT) && board.position(MID_LEFT) == symbol) || (board.position(CENTER) == board.position(BOT_RIGHT) && board.position(CENTER) == symbol)) && board.empty?(TOP_LEFT)
+    return TOP_RIGHT if ((board.position(TOP_MID) == board.position(TOP_LEFT) && board.position(TOP_MID) == symbol) || (board.position(MID_RIGHT) == board.position(BOT_RIGHT) && board.position(MID_RIGHT) == symbol) || (board.position(CENTER) == board.position(BOT_LEFT) && board.position(CENTER) == symbol)) && board.empty?(TOP_RIGHT)
+    return BOT_LEFT if ((board.position(TOP_LEFT) == board.position(MID_LEFT) && board.position(TOP_LEFT) == symbol) || (board.position(BOT_MID) == board.position(BOT_RIGHT) && board.position(BOT_MID) == symbol) || (board.position(CENTER) == board.position(TOP_RIGHT) && board.position(CENTER) == symbol)) && board.empty?(BOT_LEFT)
+    return BOT_RIGHT if ((board.position(TOP_LEFT) == board.position(CENTER) && board.position(TOP_LEFT) == symbol) || (board.position(TOP_RIGHT) == board.position(MID_RIGHT) && board.position(TOP_RIGHT) == symbol) || (board.position(BOT_LEFT) == board.position(BOT_MID) && board.position(BOT_LEFT) == symbol)) && board.empty?(BOT_RIGHT)
+    return TOP_MID if ((board.position(TOP_LEFT) == board.position(TOP_RIGHT) && board.position(TOP_LEFT) == symbol) || (board.position(CENTER) == board.position(BOT_MID) && board.position(CENTER) == symbol)) && board.empty?(TOP_MID)
+    return MID_LEFT if ((board.position(CENTER) == board.position(MID_RIGHT) && board.position(CENTER) == symbol) || (board.position(TOP_LEFT) == board.position(BOT_LEFT) && board.position(TOP_LEFT) == symbol)) && board.empty?(MID_LEFT)
+    return MID_RIGHT if ((board.position(TOP_RIGHT) == board.position(BOT_RIGHT) && board.position(TOP_RIGHT) == symbol) || (board.position(MID_LEFT) == board.position(CENTER) && board.position(MID_LEFT) == symbol)) && board.empty?(MID_RIGHT)
+    return BOT_MID if ((board.position(BOT_LEFT) == board.position(BOT_RIGHT) && board.position(BOT_LEFT) == symbol) || (board.position(TOP_MID) == board.position(CENTER) && board.position(TOP_MID) == symbol)) && board.empty?(BOT_MID)
   end
 
   def special_case_for_fourth_turn(board, symbol)
-    case1 = board.board[2][1] == board.board[1][2] && board.board[2][1] == symbol
-    case2 = board.board[2][0] == board.board[1][2] && board.board[2][0] == symbol
-    case3 = board.board[0][0] == board.board[2][1] && board.board[0][0] == symbol
-    case4 = board.board[2][1] == board.board[0][2] && board.board[0][2] == symbol
-    case5 = board.board[2][0] == board.board[0][2] && board.board[2][0] == symbol
-    case6 = board.board[0][0] == board.board[2][2] && board.board[0][0] == symbol
-    return [2,2] if (case1 || case2 || case3 || case4 && board.count == 3) && board.empty?([2,2])
-    return [2,1] if (case5 || case6 && board.count == 3) && board.empty?([2,1])
+    case1 = board.position(BOT_MID) == board.position(MID_RIGHT) && board.position(BOT_MID) == symbol
+    case2 = board.position(BOT_LEFT) == board.position(MID_RIGHT) && board.position(BOT_LEFT) == symbol
+    case3 = board.position(TOP_LEFT) == board.position(BOT_MID) && board.position(TOP_LEFT) == symbol
+    case4 = board.position(BOT_MID) == board.position(TOP_RIGHT) && board.position(TOP_RIGHT) == symbol
+    case5 = board.position(BOT_LEFT) == board.position(TOP_RIGHT) && board.position(BOT_LEFT) == symbol
+    case6 = board.position(TOP_LEFT) == board.position(BOT_RIGHT) && board.position(TOP_LEFT) == symbol
+    return BOT_RIGHT if (case1 || case2 || case3 || case4 && board.count == 3) && board.empty?(BOT_RIGHT)
+    return BOT_MID if (case5 || case6 && board.count == 3) && board.empty?(BOT_MID)
   end
 
   def next_move(board)
-    return [0,0] if board.empty?([0,0])
-    return [0,2] if board.empty?([0,2])
-    return [2,0] if board.empty?([2,0])
-    return [2,2] if board.empty?([2,2])
+    return TOP_LEFT if board.empty? TOP_LEFT
+    return TOP_RIGHT if board.empty? TOP_RIGHT
+    return BOT_LEFT if board.empty? BOT_LEFT
+    return BOT_RIGHT if board.empty? BOT_RIGHT
 
-    return [0,1] if board.empty?([0,1])
-    return [1,0] if board.empty?([1,0])
-    return [1,2] if board.empty?([1,2])
-    return [2,1] if board.empty?([2,1])
+    return TOP_MID if board.empty? TOP_MID
+    return MID_LEFT if board.empty? MID_LEFT
+    return MID_RIGHT if board.empty? MID_RIGHT
+    return BOT_MID if board.empty? BOT_MID
   end
 
 end
