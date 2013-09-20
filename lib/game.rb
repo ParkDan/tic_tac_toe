@@ -22,13 +22,8 @@ class Game
     puts "What's your name?"
     name = gets.chomp.capitalize
     name = "Player" if name.empty?
-    if order == 1
-      p1 = Player.new(name, @x_symbol)
-      p2 = Computer.new("Computer", level, @o_symbol, @x_symbol)
-    else
-      p1 = Computer.new("Computer", level, @x_symbol, @o_symbol)
-      p2 = Player.new(name, @o_symbol)
-    end
+    p1, p2 = Player.new(name, @x_symbol), Computer.new("Computer", level, @o_symbol, @x_symbol) if order == 1
+    p1, p2 = Computer.new("Computer", level, @x_symbol, @o_symbol), Player.new(name, @o_symbol) if order == 2
     @board.example
     while @board.game_on?
       p1.turn(@board)
