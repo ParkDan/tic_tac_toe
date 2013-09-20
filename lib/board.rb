@@ -10,14 +10,7 @@ class Board
 
   def example
     puts "Please use a-c to refer to rows and 1-3 to refer to columns (e.g a2)"
-    puts "   1   2   3 "
-    puts "a    |   |   "
-    puts "  ___|___|___"
-    puts "b    |   |   "
-    puts "  ___|___|___"
-    puts "c    |   |   "
-    puts "     |   |   "
-    puts "********************************************************"
+    display
   end
 
   def display
@@ -41,7 +34,11 @@ class Board
   end
 
   def empty?(move)
-    @board[move[0]][move[1]] == " "
+    @board[move[0]][move[1]].strip.empty?
+  end
+
+  def stalemate?
+    @count == 9 && @winner.empty?
   end
 
   def game_over?

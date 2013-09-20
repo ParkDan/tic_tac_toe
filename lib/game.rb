@@ -90,7 +90,7 @@ class Game
   end
 
   def game_over_message
-    return "You have reached a stalemate" if @board.count == 9 && @board.winner == ""
+    return "You have reached a stalemate" if @board.stalemate?
     "The winner is #{@board.winner}!"
   end
 
