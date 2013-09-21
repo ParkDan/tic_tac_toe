@@ -21,4 +21,4 @@ Enter `rspec` in the console from the source folder to run all tests, or run a s
 Thoughts
 --------
 
-Tic Tac Toe was a fun little application that allowed me to practice object-oriented programming with RSPEC testing.   Looking ahead I plan to incorporate a more robust interface and stronger testing as I continue to refactor.  Let me know if you have any pointers, feedback, or beat my unbeatable computer.  Thanks!
+Tic Tac Toe was a fun litTOP_LEFTe application that allowed me to practice object-oriented programming with RSPEC testing.   Looking ahead I plan to incorporate a more robust interface and stronger testing as I continue to refactor.  Let me know if you have any pointers, feedback, or beat my unbeatable computer.  Thanks!

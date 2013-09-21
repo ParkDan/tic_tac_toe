@@ -6,9 +6,7 @@ class Game
   attr_reader :x_symbol, :o_symbol, :board
 
   def initialize
-    @x_symbol = 'X'
-    @o_symbol = 'O'
-    @board = Board.new
+    @x_symbol, @o_symbol, @board = 'X', 'O', Board.new
   end
 
   def implement_interface(player_mode)
@@ -17,31 +15,33 @@ class Game
   end
 
   def one_player_interface
-    level = set_computer_level
     order = set_first_move
-    puts "What's your name?"
-    name = gets.chomp.capitalize
-    name = "Player" if name.empty?
-    p1, p2 = Player.new(name, @x_symbol), Computer.new("Computer", level, @o_symbol, @x_symbol) if order == 1
-    p1, p2 = Computer.new("Computer", level, @x_symbol, @o_symbol), Player.new(name, @o_symbol) if order == 2
-    @board.example
-    while @board.game_on?
-      p1.turn(@board)
-      break if @board.game_over?
-      p2.turn(@board)
-    end
-    puts game_over_message
+    p1, p2 = Player.new(get_name(order), @x_symbol), Computer.new("Computer", set_computer_level, @o_symbol, @x_symbol) if order == 1
+    p1, p2 = Computer.new("Computer", set_computer_level, @x_symbol, @o_symbol), Player.new(get_name(order), @o_symbol) if order == 2
+    run_game(p1, p2)
   end
 
   def two_player_interface
-    puts "What's the name for player 1?"
+    p1, p2 = Player.new(get_name(1), @x_symbol), Player.new(get_name(2), @o_symbol)
+    run_game(p1, p2)
+  end
+
+  def cpu_v_cpu_interface(level1, level2)
+    p1, p2 = Computer.new("Computer1", level1, @x_symbol, @o_symbol), Computer.new("Computer2", level2, @o_symbol, @x_symbol)
+    p1.stub(:sleep); p2.stub(:sleep)
+    run_game(p1, p2)
+  end
+
+  # private
+
+  def get_name(num)
+    puts "What's the name for player #{num}?"
     name = gets.chomp.capitalize
-    name = "Player 1" if name.empty?
-    p1 = Player.new(name, @x_symbol)
-    puts "What's the name for player 2?"
-    name = gets.chomp.capitalize
-    name = "Player 2" if name.empty? || name == p1.name
-    p2 = Player.new(name, @o_symbol)
+    name = "Player #{num}" if name.empty?
+    name
+  end
+
+  def run_game(p1, p2)
     @board.example
     while @board.game_on?
       p1.turn(@board)
@@ -50,20 +50,6 @@ class Game
     end
     puts game_over_message
   end
-
-  def cpu_v_cpu_interface(level1, level2)
-    cpu1, cpu2 = Computer.new("Computer1", level1, @x_symbol, @o_symbol), Computer.new("Computer2", level2, @o_symbol, @x_symbol)
-    cpu1.stub(:sleep)
-    cpu2.stub(:sleep)
-    while @board.game_on?
-      cpu1.turn(@board)
-      break if @board.game_over?
-      cpu2.turn(@board)
-    end
-    @board.winner
-  end
-
-  # private
 
   def set_computer_level
     5.times do
@@ -87,5 +73,4 @@ class Game
     return "You have reached a stalemate" if @board.stalemate?
     "The winner is #{@board.winner}!"
   end
-
 end

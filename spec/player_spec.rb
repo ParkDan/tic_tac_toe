@@ -58,6 +58,5 @@ describe Player do
         expect(@test_player.convert_turn_input(move)).to eql([0,2])
     end
   end
-
 end
 

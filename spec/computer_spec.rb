@@ -32,8 +32,8 @@ describe Computer do
 
   describe 'next_move' do
     it 'should return a valid empty move systematically starting with corner moves' do
-      top_left_move = [0,0]
-      expect(@test_cpu.next_move(@test_board)).to eql(top_left_move)
+      TOP_LEFT_move = [0,0]
+      expect(@test_cpu.next_move(@test_board)).to eql(TOP_LEFT_move)
     end
   end
 
@@ -71,5 +71,4 @@ describe Computer do
       expect(@test_cpu.computer_move(@test_board)).to eql(best_move)
     end
   end
-
 end

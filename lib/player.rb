@@ -2,8 +2,7 @@ class Player
   attr_reader :name, :symbol
 
   def initialize(name, symbol)
-    @name = name
-    @symbol = symbol
+    @name, @symbol = name, symbol
   end
 
   def turn(board)
@@ -24,7 +23,7 @@ class Player
   # private
 
   def turn_input_check(move)
-    char_arr = ["a", "b", "c", "A", "B", "C"]
+    char_arr = %w(a b c A B C)
     char_arr.include?(move[0]) && (1..3).include?(move[1].to_i) && move.length == 2
   end
 
@@ -35,5 +34,4 @@ class Player
     move[1] = move[1].to_i-1
     move
   end
-
 end

@@ -28,7 +28,7 @@ describe '100X cpu vs cpu simulation tests' do
   end
 
   it 'shoud never allow random cpu to win for 100 games of random cpu vs unbeatable cpu' do
-    expect(@game_over_array).not_to include "Computer1"
+    expect(@game_over_array.join).not_to include "Computer1"
   end
 
   it 'should never have a count greater than 9' do
@@ -42,5 +42,4 @@ describe '100X cpu vs cpu simulation tests' do
   it 'should check if board contains X, and O symbols' do
     @board_array.each{|board| expect(board.flatten).to include 'X', 'O'}
   end
-
 end

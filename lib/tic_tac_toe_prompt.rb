@@ -1,7 +1,6 @@
 require './lib/game'
 
 class TicTacToePrompt
-
   def header
     puts "********************************************************"
     puts "WELCOME TO CONSOLE TIC TAC TOE"
@@ -24,5 +23,4 @@ class TicTacToePrompt
     puts "********************************************************"
     puts "GoodBye"
   end
-
 end

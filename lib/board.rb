@@ -6,9 +6,7 @@ class Board
   attr_reader :board, :count, :winner
 
   def initialize
-    @board = [[" "," "," "],[" "," "," "],[" "," "," "]]
-    @count = 0
-    @winner = ""
+    @board, @count, @winner = [[" "," "," "],[" "," "," "],[" "," "," "]], 0, ""
   end
 
   def display
@@ -21,6 +19,22 @@ class Board
     puts "     |   |   "
     puts "********************************************************"
   end
+
+  def game_victory_check
+    # horizontal win
+    return true if position(TOP_LEFT) == position(TOP_MID) && position(TOP_MID) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
+    return true if position(MID_LEFT) == position(CENTER) && position(CENTER) == position(MID_RIGHT) && !empty?(MID_RIGHT)
+    return true if position(BOT_LEFT) == position(BOT_MID) && position(BOT_MID) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
+    # vertical win
+    return true if position(TOP_LEFT) == position(MID_LEFT) && position(MID_LEFT) == position(BOT_LEFT) && !empty?(BOT_LEFT)
+    return true if position(TOP_MID) == position(CENTER) && position(CENTER) == position(BOT_MID) && !empty?(BOT_MID)
+    return true if position(TOP_RIGHT) == position(MID_RIGHT) && position(MID_RIGHT) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
+    # diagonal win
+    return true if position(TOP_LEFT) == position(CENTER) && position(CENTER) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
+    return true if position(BOT_LEFT) == position(CENTER) && position(CENTER) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
+  end
+
+  def p_eql?(move1, move2, symbol) position(move1) == position(move2) && position(move1) == symbol end
 
   def add_count() @count += 1 end
 
@@ -39,18 +53,4 @@ class Board
   def game_over?() @count == 9 || game_victory_check end
 
   def game_on?() @count != 9 && !game_victory_check end
-
-  def game_victory_check
-    # horizontal win
-    return true if position(TOP_LEFT) == position(TOP_MID) && position(TOP_MID) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
-    return true if position(MID_LEFT) == position(CENTER) && position(CENTER) == position(MID_RIGHT) && !empty?(MID_RIGHT)
-    return true if position(BOT_LEFT) == position(BOT_MID) && position(BOT_MID) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
-    # vertical win
-    return true if position(TOP_LEFT) == position(MID_LEFT) && position(MID_LEFT) == position(BOT_LEFT) && !empty?(BOT_LEFT)
-    return true if position(TOP_MID) == position(CENTER) && position(CENTER) == position(BOT_MID) && !empty?(BOT_MID)
-    return true if position(TOP_RIGHT) == position(MID_RIGHT) && position(MID_RIGHT) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
-    # diagonl win
-    return true if position(TOP_LEFT) == position(CENTER) && position(CENTER) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
-    return true if position(BOT_LEFT) == position(CENTER) && position(CENTER) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
-  end
 end
