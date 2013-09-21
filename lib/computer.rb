@@ -17,8 +17,8 @@ class Computer
     sleep 0.5
     move = computer_move(board)
     board.assign_move(move, symbol)
-    board.winner = @name if board.game_victory_check
-    board.count += 1
+    board.add_winner(@name) if board.game_victory_check
+    board.add_count
   end
 
   # private
@@ -27,23 +27,14 @@ class Computer
     move = CENTER
     while board.game_on?
       break if board.empty?(move)
-      if @level == 1
-        move = rand_move
-      elsif @level == 2
-        move = intermediate_move(board)
-      else
-        move = best_move(board)
-      end
+      move = rand_move if @level == 1
+      move = intermediate_move(board) if @level == 2
+      move = best_move(board) if @level == 3
     end
     move
   end
 
-  def rand_move
-    move = []
-    move[0] = rand(3)
-    move[1] = rand(3)
-    move
-  end
+  def rand_move() move = [rand(3), rand(3)] end
 
   def best_move(board)
     return two_in_a_row_case(board, @symbol) if two_in_a_row_case(board, @symbol)

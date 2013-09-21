@@ -52,8 +52,7 @@ class Game
   end
 
   def cpu_v_cpu_interface(level1, level2)
-    cpu1=Computer.new("Computer1", level1, @x_symbol, @o_symbol)
-    cpu2=Computer.new("Computer2", level2, @o_symbol, @x_symbol)
+    cpu1, cpu2 = Computer.new("Computer1", level1, @x_symbol, @o_symbol), Computer.new("Computer2", level2, @o_symbol, @x_symbol)
     cpu1.stub(:sleep)
     cpu2.stub(:sleep)
     while @board.game_on?

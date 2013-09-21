@@ -3,18 +3,12 @@ require './lib/position_constants'
 class Board
   include PositionConstants
 
-  attr_reader :board
-  attr_accessor :count, :winner
+  attr_reader :board, :count, :winner
 
   def initialize
     @board = [[" "," "," "],[" "," "," "],[" "," "," "]]
     @count = 0
     @winner = ""
-  end
-
-  def example
-    puts "Please use a-c to refer to rows and 1-3 to refer to columns (e.g a2)"
-    display
   end
 
   def display
@@ -28,30 +22,23 @@ class Board
     puts "********************************************************"
   end
 
-  def assign_move(move, symbol)
-    @board[move[0]][move[1]] = symbol
-    display
-  end
+  def add_count() @count += 1 end
 
-  def position(move)
-    @board[move[0]][move[1]]
-  end
+  def add_winner(winner) @winner = winner end
 
-  def empty?(move)
-    @board[move[0]][move[1]].strip.empty?
-  end
+  def example() puts "Please use a-c to refer to rows and 1-3 to refer to columns (e.g a2)"; display end
 
-  def stalemate?
-    @count == 9 && @winner.empty?
-  end
+  def assign_move(move, symbol) @board[move[0]][move[1]] = symbol; display end
 
-  def game_over?
-    @count == 9 || game_victory_check
-  end
+  def position(move) @board[move[0]][move[1]] end
 
-  def game_on?
-    @count != 9 && !game_victory_check
-  end
+  def empty?(move) @board[move[0]][move[1]].strip.empty? end
+
+  def stalemate?() @count == 9 && @winner.empty? end
+
+  def game_over?() @count == 9 || game_victory_check end
+
+  def game_on?() @count != 9 && !game_victory_check end
 
   def game_victory_check
     # horizontal win
@@ -65,7 +52,5 @@ class Board
     # diagonl win
     return true if position(TOP_LEFT) == position(CENTER) && position(CENTER) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
     return true if position(BOT_LEFT) == position(CENTER) && position(CENTER) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
-
-    return false
   end
 end

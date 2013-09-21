@@ -11,12 +11,12 @@ class Player
       puts "#{@name}, please take your turn"
       move = gets.chomp.split("")
       unless turn_input_check(move) && board.empty?(convert_turn_input(move))
-        puts "sorry that was an invalid move"
+        puts "Sorry that was an invalid move"
         next
       end
       board.assign_move(move, symbol)
-      board.winner = @name if board.game_victory_check
-      board.count += 1
+      board.add_winner(@name) if board.game_victory_check
+      board.add_count
       break
     end
   end

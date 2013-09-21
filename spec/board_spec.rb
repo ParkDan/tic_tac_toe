@@ -40,7 +40,7 @@ describe Board do
 
   describe 'game_over?' do
     it 'shoud return true if count = 9' do
-      @board.count = 9
+      9.times { @board.add_count }
       expect(@board.game_over?).to be_true
     end
     it 'should return true if game_victory_check is true' do
@@ -51,7 +51,7 @@ describe Board do
 
   describe 'game_on?' do
     it 'shoud return false if count = 9' do
-      @board.count = 9
+      9.times { @board.add_count }
       expect(@board.game_on?).to be_false
     end
     it 'should return false if game_victory_check is true' do
