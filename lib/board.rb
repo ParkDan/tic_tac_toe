@@ -1,4 +1,8 @@
+require './lib/position_constants'
+
 class Board
+  include PositionConstants
+
   attr_reader :board
   attr_accessor :count, :winner
 
@@ -15,11 +19,11 @@ class Board
 
   def display
     puts "   1   2   3 "
-    puts "a  #{@board[0][0]} | #{@board[0][1]} | #{@board[0][2]}  "
+    puts "a  #{position(TOP_LEFT)} | #{position(TOP_MID)} | #{position(TOP_RIGHT)}  "
     puts "  ___|___|___"
-    puts "b  #{@board[1][0]} | #{@board[1][1]} | #{@board[1][2]}  "
+    puts "b  #{position(MID_LEFT)} | #{position(CENTER)} | #{position(MID_RIGHT)}  "
     puts "  ___|___|___"
-    puts "c  #{@board[2][0]} | #{@board[2][1]} | #{@board[2][2]}  "
+    puts "c  #{position(BOT_LEFT)} | #{position(BOT_MID)} | #{position(BOT_RIGHT)}  "
     puts "     |   |   "
     puts "********************************************************"
   end
@@ -51,18 +55,17 @@ class Board
 
   def game_victory_check
     # horizontal win
-    return true if @board[0][0] == @board[0][1] && @board[0][1] == @board[0][2] && !empty?([0,2])
-    return true if @board[1][0] == @board[1][1] && @board[1][1] == @board[1][2] && !empty?([1,2])
-    return true if @board[2][0] == @board[2][1] && @board[2][1] == @board[2][2] && !empty?([2,2])
+    return true if position(TOP_LEFT) == position(TOP_MID) && position(TOP_MID) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
+    return true if position(MID_LEFT) == position(CENTER) && position(CENTER) == position(MID_RIGHT) && !empty?(MID_RIGHT)
+    return true if position(BOT_LEFT) == position(BOT_MID) && position(BOT_MID) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
     # vertical win
-    return true if @board[0][0] == @board[1][0] && @board[1][0] == @board[2][0] && !empty?([2,0])
-    return true if @board[0][1] == @board[1][1] && @board[1][1] == @board[2][1] && !empty?([2,1])
-    return true if @board[0][2] == @board[1][2] && @board[1][2] == @board[2][2] && !empty?([2,2])
+    return true if position(TOP_LEFT) == position(MID_LEFT) && position(MID_LEFT) == position(BOT_LEFT) && !empty?(BOT_LEFT)
+    return true if position(TOP_MID) == position(CENTER) && position(CENTER) == position(BOT_MID) && !empty?(BOT_MID)
+    return true if position(TOP_RIGHT) == position(MID_RIGHT) && position(MID_RIGHT) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
     # diagonl win
-    return true if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2] && !empty?([2,2])
-    return true if @board[2][0] == @board[1][1] && @board[1][1] == @board[0][2] && !empty?([0,2])
+    return true if position(TOP_LEFT) == position(CENTER) && position(CENTER) == position(BOT_RIGHT) && !empty?(BOT_RIGHT)
+    return true if position(BOT_LEFT) == position(CENTER) && position(CENTER) == position(TOP_RIGHT) && !empty?(TOP_RIGHT)
 
     return false
   end
-
 end
