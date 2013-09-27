@@ -1,9 +1,9 @@
-require_relative 'position_constants'
+require_relative 'constants'
 require_relative 'io_interface'
 
 class Board
   include IOInterface
-  include PositionConstants
+  include Constants
 
   attr_reader :board, :count, :winner
 

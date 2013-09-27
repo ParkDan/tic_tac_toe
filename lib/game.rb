@@ -1,14 +1,31 @@
 require_relative 'board'
 require_relative 'computer'
 require_relative 'player'
+require_relative 'constants'
 require_relative 'io_interface'
 
 class Game
   include IOInterface
-  attr_reader :x_symbol, :o_symbol, :board
+  include Constants
+  attr_reader :board
 
   def initialize
-    @x_symbol, @o_symbol, @board = 'X', 'O', Board.new
+    @board = Board.new
+  end
+
+  def game_start
+    header
+    5.times do
+      one_two_prompt
+      response = get_response.to_i
+      unless (1..2).include? response
+        invalid
+        next
+      end
+      implement_interface(response)
+      break
+    end
+    goodbye
   end
 
   def implement_interface(player_mode)
@@ -18,18 +35,18 @@ class Game
 
   def one_player_interface
     order = set_first_move
-    p1, p2 = Player.new(get_name(order), @x_symbol), Computer.new("Computer", set_computer_level, @o_symbol) if order == 1
-    p1, p2 = Computer.new("Computer", set_computer_level, @x_symbol), Player.new(get_name(order), @o_symbol) if order == 2
+    p1, p2 = Player.new(get_name(order), X_SYM), Computer.new("Computer", set_computer_level, O_SYM) if order == 1
+    p1, p2 = Computer.new("Computer", set_computer_level, X_SYM), Player.new(get_name(order), O_SYM) if order == 2
     run_game(p1, p2)
   end
 
   def two_player_interface
-    p1, p2 = Player.new(get_name(1), @x_symbol), Player.new(get_name(2), @o_symbol)
+    p1, p2 = Player.new(get_name(1), X_SYM), Player.new(get_name(2), O_SYM)
     run_game(p1, p2)
   end
 
   def cpu_v_cpu_interface(level1, level2)
-    p1, p2 = Computer.new("Computer1", level1, @x_symbol), Computer.new("Computer2", level2, @o_symbol)
+    p1, p2 = Computer.new("Computer1", level1, X_SYM), Computer.new("Computer2", level2, O_SYM)
     p1.stub(:sleep); p2.stub(:sleep)
     run_game(p1, p2)
   end
@@ -50,7 +67,7 @@ class Game
       break if @board.game_over?
       p2.turn(@board)
     end
-    puts game_over_message(@board)
+    game_over_message(@board)
   end
 
   def set_computer_level

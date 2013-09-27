@@ -11,7 +11,7 @@ class Player
   def turn(board)
     while board.game_on?
       turn_prompt(@name)
-      move = gets.chomp.split("")
+      move = get_response.split("")
       unless turn_input_check(move) && board.empty?(convert_turn_input(move))
         invalid
         next

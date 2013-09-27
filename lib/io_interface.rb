@@ -40,7 +40,7 @@ module IOInterface
   def turn_prompt(name) puts "#{name}, please take your turn" end
 
   def game_over_message(board)
-    return "You have reached a stalemate" if board.stalemate?
-    "The winner is #{board.winner}!"
+    message= board.stalemate? ? "You have reached a stalemate" : "The winner is #{board.winner}!"
+    puts message
   end
 end

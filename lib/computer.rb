@@ -1,9 +1,9 @@
-require_relative 'position_constants'
+require_relative 'constants'
 require_relative 'io_interface'
 
 class Computer
   include IOInterface
-  include PositionConstants
+  include Constants
 
   attr_reader :name, :level, :symbol
 
@@ -12,7 +12,7 @@ class Computer
   end
 
   def opp_symbol
-    @symbol == 'X' ? 'O' : 'X'
+    @symbol == X_SYM ? O_SYM : X_SYM
   end
 
   def turn(board)
