@@ -10,13 +10,7 @@ class Player
 
   def turn(board)
     while board.game_on?
-      turn_prompt(@name)
-      move = get_response.split("")
-      unless turn_input_check(move) && board.empty?(convert_turn_input(move))
-        invalid
-        next
-      end
-      board.assign_move(move, symbol)
+      board.assign_move(get_move(board), symbol)
       board.add_winner(@name) if board.game_victory_check
       board.add_count
       break
@@ -24,6 +18,16 @@ class Player
   end
 
   # private
+
+  def get_move(board)
+    turn_prompt(@name)
+    move = get_response.split("")
+    unless turn_input_check(move) && board.empty?(convert_turn_input(move))
+      invalid
+      move = get_move(board)
+    end
+    move
+  end
 
   def turn_input_check(move)
     char_arr = %w(a b c A B C)
