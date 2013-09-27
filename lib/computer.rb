@@ -1,16 +1,22 @@
-require './lib/position_constants'
+require_relative 'position_constants'
+require_relative 'io_interface'
 
 class Computer
+  include IOInterface
   include PositionConstants
 
   attr_reader :name, :level, :symbol
 
-  def initialize(name, level, symbol, opp_symbol)
-    @name, @level, @symbol, @opp_symbol = name, level, symbol, opp_symbol
+  def initialize(name, level, symbol)
+    @name, @level, @symbol = name, level, symbol
+  end
+
+  def opp_symbol
+    @symbol == 'X' ? 'O' : 'X'
   end
 
   def turn(board)
-    puts "Computer turn..."
+    cpu_turn_output
     sleep 0.5
     move = computer_move(board)
     board.assign_move(move, symbol)
@@ -33,9 +39,9 @@ class Computer
 
   def rand_move() move = [rand(3), rand(3)] end
 
-  def intermediate_move(board) two_in_a_row_case(board, @symbol) || two_in_a_row_case(board, @opp_symbol) || rand_move end
+  def intermediate_move(board) two_in_a_row_case(board, @symbol) || two_in_a_row_case(board, opp_symbol) || rand_move end
 
-  def best_move(board) two_in_a_row_case(board, @symbol) || two_in_a_row_case(board, @opp_symbol) || special_case_for_fourth_turn(board, @opp_symbol) || next_move(board) end
+  def best_move(board) two_in_a_row_case(board, @symbol) || two_in_a_row_case(board, opp_symbol) || special_case_for_fourth_turn(board, opp_symbol) || next_move(board) end
 
   def two_in_a_row_case(board, symbol)
     return TOP_LEFT if board.empty?(TOP_LEFT) && (board.p_eql?(TOP_MID, TOP_RIGHT, symbol) || board.p_eql?(MID_LEFT, BOT_LEFT, symbol) || board.p_eql?(CENTER, BOT_RIGHT, symbol))

@@ -1,4 +1,4 @@
-require './lib/game'
+require 'game'
 
 describe '100X cpu vs cpu simulation tests' do
   before do

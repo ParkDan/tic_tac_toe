@@ -1,4 +1,4 @@
-require './lib/game'
+require 'game'
 
 describe Game do
   before do
@@ -19,12 +19,12 @@ describe Game do
     it 'should return tie message if count is 9 and no winner' do
       9.times { @test_game.board.add_count }
       tie_message = "You have reached a stalemate"
-      expect(@test_game.game_over_message).to eql(tie_message)
+      expect(@test_game.game_over_message(@test_game.board)).to eql(tie_message)
     end
     it 'should return winner message if winner has been established' do
       @test_game.board.add_winner("Me")
       winner_message = "The winner is #{@test_game.board.winner}!"
-      expect(@test_game.game_over_message).to eql(winner_message)
+      expect(@test_game.game_over_message(@test_game.board)).to eql(winner_message)
     end
   end
 

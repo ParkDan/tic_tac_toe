@@ -1,4 +1,4 @@
-require './lib/computer'
+require 'computer'
 
 describe Computer do
   before do
@@ -6,7 +6,7 @@ describe Computer do
     @test_board = Board.new
     @X_symbol = "X"
     @O_symbol = "O"
-    @test_cpu = Computer.new("test", 1, @X_symbol, @O_symbol )
+    @test_cpu = Computer.new("test", 1, @X_symbol)
     @test_cpu.stub(:sleep)
     @center_move = [1,1]
   end
@@ -57,14 +57,14 @@ describe Computer do
       expect(@test_cpu.computer_move(@test_board)).to eql(rand_move)
     end
     it 'should return an intermediate move if level is set to 2 and center move is taken' do
-      @test_cpu = Computer.new("test", 2, @X_symbol, @O_symbol )
+      @test_cpu = Computer.new("test", 2, @X_symbol)
       @test_board.assign_move(@center_move, @X_symbol)
       intermediate_move = [0,2]
       @test_cpu.stub(:intermediate_move).and_return(intermediate_move)
       expect(@test_cpu.computer_move(@test_board)).to eql(intermediate_move)
     end
     it 'should return a best move if level is set to 3 and center move is taken' do
-      @test_cpu = Computer.new("test", 3, @X_symbol, @O_symbol )
+      @test_cpu = Computer.new("test", 3, @X_symbol)
       @test_board.assign_move(@center_move, @X_symbol)
       best_move = [0,0]
       @test_cpu.stub(:best_move).and_return(best_move)

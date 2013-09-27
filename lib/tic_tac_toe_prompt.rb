@@ -1,26 +1,22 @@
-require './lib/game'
+require_relative 'game'
+require_relative 'io_interface'
 
 class TicTacToePrompt
-  def header
-    puts "********************************************************"
-    puts "WELCOME TO CONSOLE TIC TAC TOE"
-    puts "********************************************************"
-  end
+  include IOInterface
 
   def game_start
     header
     5.times do
-      puts "Would you like to play one player or two? (1 or 2)"
-      response = gets.chomp.to_i
+      one_two_prompt
+      response = get_response.to_i
       unless (1..2).include? response
-        puts "sorry invalid response"
+        invalid
         next
       end
       game = Game.new
       game.implement_interface(response)
       break
     end
-    puts "********************************************************"
-    puts "GoodBye"
+    goodbye
   end
 end

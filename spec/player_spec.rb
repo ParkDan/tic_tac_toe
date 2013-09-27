@@ -1,4 +1,4 @@
-require './lib/player'
+require 'player'
 
 describe Player do
   before do
@@ -9,7 +9,6 @@ describe Player do
     @test_name = "dummy"
     @test_symbol = "X"
     @test_player = Player.new(@test_name, @test_symbol)
-
   end
 
   it 'should set name attribute when created' do

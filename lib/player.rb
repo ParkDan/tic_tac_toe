@@ -1,4 +1,7 @@
+require_relative 'io_interface'
+
 class Player
+  include IOInterface
   attr_reader :name, :symbol
 
   def initialize(name, symbol)
@@ -7,10 +10,10 @@ class Player
 
   def turn(board)
     while board.game_on?
-      puts "#{@name}, please take your turn"
+      turn_prompt(@name)
       move = gets.chomp.split("")
       unless turn_input_check(move) && board.empty?(convert_turn_input(move))
-        puts "Sorry that was an invalid move"
+        invalid
         next
       end
       board.assign_move(move, symbol)

@@ -1,4 +1,4 @@
-require './lib/board'
+require 'board'
 
 describe Board do
    describe 'initialization' do
