@@ -11,11 +11,6 @@ module IOInterface
 
   def invalid() puts "Sorry that was an invalid response" end
 
-  def goodbye
-    puts "********************************************************"
-    puts "GoodBye"
-  end
-
   def instructions() puts "Please use a-c to refer to rows and 1-3 to refer to columns (e.g a2)" end
 
   def display_output
@@ -31,16 +26,21 @@ module IOInterface
 
   def name_prompt(num) puts "What's the name for player #{num}?" end
 
-  def cpu_turn_output() puts "Computer turn..." end
-
   def cpu_level_prompt() puts "Please select computer level: 1(easy), 2(intermediate), 3(unbeatable)" end
 
   def order_prompt() puts "Would you like to go 1st or 2nd? (1,2)" end
+
+  def cpu_turn_output() puts "Computer turn..." end
 
   def turn_prompt(name) puts "#{name}, please take your turn" end
 
   def game_over_message(board)
     message = board.stalemate? ? "You have reached a stalemate" : "The winner is #{board.winner}!"
     puts message
+  end
+
+  def goodbye
+    puts "********************************************************"
+    puts "GoodBye"
   end
 end

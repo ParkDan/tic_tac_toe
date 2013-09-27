@@ -18,8 +18,7 @@ class Computer
   def turn(board)
     cpu_turn_output
     sleep 0.5
-    move = computer_move(board)
-    board.assign_move(move, symbol)
+    board.assign_move(computer_move(board), symbol)
     board.add_winner(@name) if board.game_victory_check
     board.add_count
   end

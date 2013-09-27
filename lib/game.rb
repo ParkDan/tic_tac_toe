@@ -28,15 +28,12 @@ class Game
     goodbye
   end
 
-  def implement_interface(player_mode)
-    one_player_interface if player_mode == 1
-    two_player_interface if player_mode == 2
-  end
+  def implement_interface(player_mode) player_mode == 1 ? one_player_interface : two_player_interface end
 
   def one_player_interface
     order = set_first_move
-    p1, p2 = Player.new(get_name(order), X_SYM), Computer.new("Computer", set_computer_level, O_SYM) if order == 1
-    p1, p2 = Computer.new("Computer", set_computer_level, X_SYM), Player.new(get_name(order), O_SYM) if order == 2
+    p1 = order == 1 ? Player.new(get_name(order), X_SYM) : Computer.new("Computer", set_computer_level, X_SYM)
+    p2 = order == 2 ? Player.new(get_name(order), O_SYM) : Computer.new("Computer", set_computer_level, O_SYM)
     run_game(p1, p2)
   end
 
