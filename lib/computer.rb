@@ -1,5 +1,5 @@
-require_relative 'constants'
-require_relative 'io_interface'
+require 'constants'
+require 'io_interface'
 
 class Computer
   include IOInterface
@@ -20,7 +20,6 @@ class Computer
     sleep 0.5
     board.assign_move(computer_move(board), symbol)
     board.add_winner(@name) if board.game_victory_check
-    board.add_count
   end
 
   # private

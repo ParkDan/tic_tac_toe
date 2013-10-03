@@ -1,5 +1,5 @@
-require_relative 'io_interface'
-require_relative 'player_console_move'
+require 'io_interface'
+require 'player_console_move'
 
 class Player
   include IOInterface
@@ -15,7 +15,6 @@ class Player
     while board.game_on?
       board.assign_move(get_move(board), symbol)
       board.add_winner(@name) if board.game_victory_check
-      board.add_count
       break
     end
   end

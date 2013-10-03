@@ -1,8 +1,8 @@
-require_relative 'board'
-require_relative 'computer'
-require_relative 'player'
-require_relative 'constants'
-require_relative 'io_interface'
+require 'board'
+require 'computer'
+require 'player'
+require 'constants'
+require 'io_interface'
 
 class Game
   include IOInterface
@@ -42,6 +42,7 @@ class Game
     run_game(p1, p2)
   end
 
+  # for testing
   def cpu_v_cpu_interface(level1, level2)
     p1, p2 = Computer.new("Computer1", level1, X_SYM), Computer.new("Computer2", level2, O_SYM)
     p1.stub(:sleep); p2.stub(:sleep)
@@ -49,7 +50,6 @@ class Game
   end
 
   # private
-
   def get_name(num)
     name_prompt(num)
     name = get_response.capitalize

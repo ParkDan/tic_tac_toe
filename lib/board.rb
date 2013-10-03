@@ -1,14 +1,14 @@
-require_relative 'constants'
-require_relative 'io_interface'
+require 'constants'
+require 'io_interface'
 
 class Board
   include IOInterface
   include Constants
 
-  attr_reader :board, :count, :winner
+  attr_reader :board, :winner
 
   def initialize
-    @board, @count, @winner = [[" "," "," "],[" "," "," "],[" "," "," "]], 0, ""
+    @board, @winner = [[" "," "," "],[" "," "," "],[" "," "," "]], ""
   end
 
   def game_victory_check
@@ -25,8 +25,6 @@ class Board
 
   def p_eql?(move1, move2, symbol) position(move1) == position(move2) && position(move1) == symbol end
 
-  def add_count() @count += 1 end
-
   def add_winner(winner) @winner = winner end
 
   def example() instructions; display end
@@ -37,9 +35,18 @@ class Board
 
   def empty?(move) @board[move[0]][move[1]].strip.empty? end
 
-  def stalemate?() @count == 9 && @winner.empty? end
+  def stalemate?() count == 9 && @winner.empty? end
 
-  def game_over?() @count == 9 || game_victory_check end
+  def game_over?() count == 9 || game_victory_check end
 
-  def game_on?() @count != 9 && !game_victory_check end
+  def game_on?() count != 9 && !game_victory_check end
+
+  def available_moves()
+    valid_move_array=[]
+    POS_ARY.each { |pos| valid_move_array << pos if empty?(pos) }
+    valid_move_array
+  end
+
+  def count() 9 - available_moves.length end
+
 end

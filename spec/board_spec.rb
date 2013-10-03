@@ -5,7 +5,6 @@ describe Board do
     context 'when created' do
       it {expect(self).not_to eql(nil)}
       it {expect(subject.winner).to eql("")}
-      it {expect(subject.count).to eql(0)}
       it {expect(subject.board).to be_an Array}
       it {expect(subject.board.count).to eql(3)}
       it {expect(subject.board.first.count).to eql(3)}
@@ -40,7 +39,7 @@ describe Board do
 
   describe 'game_over?' do
     it 'shoud return true if count = 9' do
-      9.times { @board.add_count }
+      @board.stub(:count).and_return 9
       expect(@board.game_over?).to be_true
     end
     it 'should return true if game_victory_check is true' do
@@ -51,7 +50,7 @@ describe Board do
 
   describe 'game_on?' do
     it 'shoud return false if count = 9' do
-      9.times { @board.add_count }
+      @board.stub(:count).and_return 9
       expect(@board.game_on?).to be_false
     end
     it 'should return false if game_victory_check is true' do
